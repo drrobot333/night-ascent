@@ -53,6 +53,8 @@ export function makeCairn(rng) {
   return g;
 }
 
+const flipArrows = (t) => t.replace(/[→←]/g, (c) => (c === '→' ? '←' : '→'));
+
 export function makeSignpost(text, sub) {
   const g = new THREE.Group();
   const post = new THREE.Mesh(new THREE.BoxGeometry(0.12, 2.2, 0.12), woodMat);
@@ -61,7 +63,7 @@ export function makeSignpost(text, sub) {
   const board = new THREE.Mesh(new THREE.BoxGeometry(1.3, 0.32, 0.05), [
     darkWood, darkWood, darkWood, darkWood,
     new THREE.MeshStandardMaterial({ map: textTexture([text], { size: 60 }), roughness: 0.85 }),
-    new THREE.MeshStandardMaterial({ map: textTexture([text], { size: 60 }), roughness: 0.85 }),
+    new THREE.MeshStandardMaterial({ map: textTexture([flipArrows(text)], { size: 60 }), roughness: 0.85 }),
   ]);
   board.position.set(0, 1.85, 0); board.castShadow = true; board.receiveShadow = true;
   g.add(board);
@@ -69,7 +71,7 @@ export function makeSignpost(text, sub) {
     const b2 = new THREE.Mesh(new THREE.BoxGeometry(1.1, 0.24, 0.05), [
       darkWood, darkWood, darkWood, darkWood,
       new THREE.MeshStandardMaterial({ map: textTexture([sub], { size: 44, bg: '#4a3826' }), roughness: 0.85 }),
-      new THREE.MeshStandardMaterial({ map: textTexture([sub], { size: 44, bg: '#4a3826' }), roughness: 0.85 }),
+      new THREE.MeshStandardMaterial({ map: textTexture([flipArrows(sub)], { size: 44, bg: '#4a3826' }), roughness: 0.85 }),
     ]);
     b2.position.set(0, 1.5, 0); b2.castShadow = true;
     g.add(b2);
@@ -213,7 +215,7 @@ export class Props {
         const km = (remain / 1000).toFixed(1);
         const sign = makeSignpost(`정상 ${km}km →`, `등산로 ${i}`);
         sign.position.set(sx, sy, sz);
-        sign.rotation.y = Math.atan2(dir.x, dir.z) + Math.PI / 2 * -side;
+        sign.rotation.y = Math.atan2(dir.x, dir.z) - Math.PI / 2;
         this.group.add(sign);
       }
     }

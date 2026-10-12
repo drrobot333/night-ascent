@@ -117,18 +117,18 @@ export class Humanoid {
     // legs
     this.legL.hip.rotation.x = Math.sin(p) * swing;
     this.legR.hip.rotation.x = Math.sin(p + Math.PI) * swing;
-    this.legL.kn.rotation.x = Math.max(0, -Math.sin(p - 0.6)) * (0.9 + run * 0.6) * g;
-    this.legR.kn.rotation.x = Math.max(0, -Math.sin(p + Math.PI - 0.6)) * (0.9 + run * 0.6) * g;
+    this.legL.kn.rotation.x = -Math.max(0, Math.sin(p - 0.6)) * (0.9 + run * 0.6) * g;
+    this.legR.kn.rotation.x = -Math.max(0, Math.sin(p + Math.PI - 0.6)) * (0.9 + run * 0.6) * g;
     // arms (counter swing), relaxed when idle
     this.armL.sh.rotation.x = Math.sin(p + Math.PI) * swing * 0.8 + 0.1;
     this.armR.sh.rotation.x = Math.sin(p) * swing * 0.8 + 0.1;
     this.armL.sh.rotation.z = 0.12; this.armR.sh.rotation.z = -0.12;
-    this.armL.el.rotation.x = -0.35 - Math.max(0, Math.sin(p + Math.PI)) * 0.5 * g - run * 0.8;
-    this.armR.el.rotation.x = -0.35 - Math.max(0, Math.sin(p)) * 0.5 * g - run * 0.8;
+    this.armL.el.rotation.x = 0.35 + Math.max(0, Math.sin(p + Math.PI)) * 0.5 * g + run * 0.8;
+    this.armR.el.rotation.x = 0.35 + Math.max(0, Math.sin(p)) * 0.5 * g + run * 0.8;
     // body bob, lean, breathing
     const breathe = Math.sin(t * 1.4) * 0.006;
     this.body.position.y = 0.95 + Math.abs(Math.sin(p)) * 0.04 * g + breathe;
-    this.body.rotation.x = 0.05 * g + run * 0.15;
+    this.body.rotation.x = -(0.05 * g + run * 0.15);
     this.body.rotation.z = Math.sin(p) * 0.03 * g;
     // head look (clamped so the neck doesn't break)
     this._lookYaw = damp(this._lookYaw, THREE.MathUtils.clamp(headYaw, -1.2, 1.2), 10, dt);

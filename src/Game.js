@@ -709,8 +709,8 @@ export class Game {
     let slow = 1, myFeetLit = 1;
     if (myZone) {
       const fx = -Math.sin(player.yaw), fz = -Math.cos(player.yaw);
-      myFeetLit = lamp.litFactor(this.tmp.a.set(player.position.x + fx * 0.8, player.position.y + 0.1, player.position.z + fz * 0.8));
-      slow = myFeetLit > 0.12 ? 0.45 : 0;
+      myFeetLit = lamp.litFactor(this.tmp.a.set(player.position.x + fx * 0.5, player.position.y + 0.1, player.position.z + fz * 0.5));
+      slow = myFeetLit > 0.4 ? 0.45 : 0;
       if (playing && !this._seenZones.has(myZone.index)) {
         this._seenZones.add(myZone.index);
         this.ui.say(null, `위험 구간 · ${myZone.name}<br/><span style="font-size:14px;color:#bdb8ae">발밑이 비춰질 때만 움직일 수 있다</span>`, 4500);
@@ -843,9 +843,9 @@ export class Game {
         else if (bat && holding) this.ui.prompt('<b>E</b> 배터리 집기');
         else if (bat && !holding) this.ui.prompt('배터리 · 랜턴을 든 사람이 집어야 한다');
         else if (pd < 2.6 && this.handoffCooldown <= 0) this.ui.prompt(holding ? '<b>E</b> 랜턴 건네기' : '<b>E</b> 랜턴 받기');
-        else if (myZone && myFeetLit <= 0.12) this.ui.prompt(holding ? '발밑이 보이지 않는다 · 아래를 보며 천천히 건너라' : '발밑이 보이지 않는다 · 파트너가 발밑을 비춰줘야 한다');
+        else if (myZone && myFeetLit <= 0.4) this.ui.prompt(holding ? '발밑이 보이지 않는다 · 아래를 보며 천천히 건너라' : '발밑이 보이지 않는다 · 파트너가 발밑을 비춰줘야 한다');
         else if (myZone) this.ui.prompt('천천히… 발밑을 보며');
-        else if (partnerZone && holding && partnerFeetLit <= 0.12) this.ui.prompt('파트너의 발밑을 비춰라');
+        else if (partnerZone && holding && partnerFeetLit <= 0.4) this.ui.prompt('파트너의 발밑을 비춰라');
         else if (partnerBusy && holding) this.ui.prompt('파트너가 작업 중 · 주변을 비추며 지켜라');
         else if (qAhead && !qAhead.done && qAhead.s - sPlayer < 12 && sPlayer < qAhead.s) this.ui.prompt(qAhead.type === 'lever' ? '철문이 잠겨 있다 · 케이블을 따라가면 레버가 있다' : '나무가 길을 막고 있다 · 옆의 윈치를 돌려라');
         else this.ui.prompt(null);

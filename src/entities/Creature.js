@@ -239,28 +239,28 @@ export class Creature {
     this.legR.joint.rotation.x = 0.6 + Math.max(0, -Math.sin(ph + Math.PI - 0.6)) * sw;
     // arms: hang long; cover the face when lit; reach when grabbing / lunging
     const reach = Math.max(grab, lunge * 0.7);
-    this.armL.g.rotation.x = lerp(lerp(Math.sin(ph + Math.PI) * sw * 0.4, -2.7, c), -1.7, reach);
-    this.armR.g.rotation.x = lerp(lerp(Math.sin(ph) * sw * 0.4, -2.7, c), -1.7, reach);
+    this.armL.g.rotation.x = lerp(lerp(Math.sin(ph + Math.PI) * sw * 0.4, 2.7, c), 1.7, reach);
+    this.armR.g.rotation.x = lerp(lerp(Math.sin(ph) * sw * 0.4, 2.7, c), 1.7, reach);
     this.armL.g.rotation.z = lerp(0.1, 0.45, c) - reach * 0.25;
     this.armR.g.rotation.z = lerp(-0.1, -0.45, c) + reach * 0.25;
-    this.armL.joint.rotation.x = lerp(-0.2, -0.9, c) - reach * 0.4;
-    this.armR.joint.rotation.x = lerp(-0.2, -0.9, c) - reach * 0.4;
+    this.armL.joint.rotation.x = lerp(0.2, 0.9, c) + reach * 0.3;
+    this.armR.joint.rotation.x = lerp(0.2, 0.9, c) + reach * 0.3;
     // body: leans into the run, twitches
     const j = st === 'LUNGE' ? 0.07 : grab ? 0.05 : 0.03;
     this.body.position.x = (Math.random() - 0.5) * j;
     this.body.position.y = 1.95 - lunge * 0.5 + (Math.random() - 0.5) * j + (moving ? Math.abs(Math.sin(ph)) * 0.06 : 0);
-    this.body.rotation.x = lunge * 0.9 + grab * 1.15 + Math.sin(t * 1.3) * 0.03;
+    this.body.rotation.x = -(lunge * 0.9 + grab * 1.15) + Math.sin(t * 1.3) * 0.03;
     if (grab) this.body.position.y = 1.35 + (Math.random() - 0.5) * 0.04;
     this.body.rotation.z = Math.sin(t * 0.9) * 0.06 + (Math.random() - 0.5) * 0.02;
     // head: tilted, snapping
     const snap = Math.random() < dt * 1.5 ? (Math.random() - 0.5) * 0.9 : 0;
     this.neck.rotation.z = damp(this.neck.rotation.z, Math.sin(t * 0.7) * 0.35 + snap, 8, dt);
-    this.neck.rotation.x = lerp(0.15, -0.6, c) - lunge * 0.6 - grab * 1.35;
+    this.neck.rotation.x = lerp(0.15, -0.6, c) + lunge * 0.6 + grab * 1.35;
     this.neck.rotation.y = grab ? Math.sin(t * 9) * 0.08 : 0;
     // mouth gapes open when it has you
-    this.jaw.scale.set(1 + grab * 0.5, 1 + grab * 4.0, 1);
-    this.jaw.position.y = 0.07 + grab * 0.03;
-    this.jaw.position.z = -0.11 - grab * 0.02;
+    this.jaw.scale.set(1 + grab * 0.2, 1 + grab * 2.2, 1);
+    this.jaw.position.y = 0.07 - grab * 0.02;
+    this.jaw.position.z = -0.11 - grab * 0.008;
     this.eyeM.emissiveIntensity = lerp(0, 5, this.visibleFactor) * (1 - c * 0.9) * (0.7 + 0.3 * Math.sin(t * 9)) + grab * 6;
   }
 

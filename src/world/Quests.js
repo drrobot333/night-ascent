@@ -63,8 +63,6 @@ export class Quests {
     const tape = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.1, 0.09), reflect); tape.position.set(2.4, 1.2, 0); bars.add(tape);
     g.add(bars);
     q.bars = bars;
-    const sign = makeSignpost('통행 금지', '레버로 개방 →');
-    sign.position.set(-3.2, 0, 0.6); sign.rotation.y = 0; g.add(sign);
     this.group.add(g);
     this._blockTrail(q, idx);
 
@@ -82,6 +80,8 @@ export class Quests {
       const score = nrm.y * 3 - dh * 0.4 + rng() * 0.3;
       if (score > bestScore) { bestScore = score; best = { x, z, side }; }
     }
+    const sign = makeSignpost('통행 금지', '레버로 개방 →');
+    sign.position.set(-3.2 * best.side, 0, 0.9); sign.rotation.y = best.side === 1 ? 0 : Math.PI; g.add(sign);
     const lx = best.x, lz = best.z, ly = terrain.heightAt(lx, lz);
     q.pos = new THREE.Vector3(lx, ly, lz);
     q.leverPos = q.pos;

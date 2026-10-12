@@ -172,13 +172,13 @@ export class Companion {
             if (pNear.s < zone.s1 - 0.5) steerTo(ex.x, ex.z, 1.2, 0.6);
             else steerTo(pp.x + (-Math.sin(player.yaw)) * 2.4 - Math.cos(player.yaw) * 1.5, pp.z + (-Math.cos(player.yaw)) * 2.4 + Math.sin(player.yaw) * 1.5, 2.0, 0.5);
           } else if (myZone) {
-            if (feetLit > 0.12) { steerTo(ex.x, ex.z, 0.9, 0.3); if (this._askedLight) { this._askedLight = false; this.speak('thanks', true); } }
+            if (feetLit > 0.4) { steerTo(ex.x, ex.z, 0.9, 0.3); if (this._askedLight) { this._askedLight = false; this.speak('thanks', true); } }
             else { if (Math.random() < dt * 0.35) { this.speak('needLight'); this._askedLight = true; } }
           } else {
             const entIdx = this.trail.indexAtDistance(zone.s0 - 1);
             const en = this.trail.pointAt(entIdx, this._lookPoint);
-            if (feetLit > 0.12 || Math.hypot(en.x - this.position.x, en.z - this.position.z) > 1.0) steerTo(en.x, en.z, 1.4, 0.6);
-            if (myNear.s > zone.s0 - 2 && feetLit > 0.12) steerTo(ex.x, ex.z, 0.9, 0.3);
+            if (feetLit > 0.4 || Math.hypot(en.x - this.position.x, en.z - this.position.z) > 1.0) steerTo(en.x, en.z, 1.4, 0.6);
+            if (myNear.s > zone.s0 - 2 && feetLit > 0.4) steerTo(ex.x, ex.z, 0.9, 0.3);
           }
           if (myZone && this._crossingZone !== zone) this._crossingZone = zone;
           if (!myZone && myNear.s > zone.s1 && this._crossingZone === zone) { this._crossingZone = null; this.speak('crossed'); }
@@ -299,10 +299,10 @@ export class Companion {
     this.model.update(dt, t, this.working ? 0 : this.speed, workAnim);
     if (this.working) {
       const ph = t * 7;
-      this.model.armL.sh.rotation.x = -1.1 + Math.sin(ph) * 0.4;
-      this.model.armR.sh.rotation.x = -1.1 + Math.sin(ph + Math.PI) * 0.4;
-      this.model.armL.el.rotation.x = -0.8; this.model.armR.el.rotation.x = -0.8;
-      this.model.body.rotation.x = 0.25;
+      this.model.armL.sh.rotation.x = 1.1 + Math.sin(ph) * 0.4;
+      this.model.armR.sh.rotation.x = 1.1 + Math.sin(ph + Math.PI) * 0.4;
+      this.model.armL.el.rotation.x = 0.8; this.model.armR.el.rotation.x = 0.8;
+      this.model.body.rotation.x = -0.25;
     }
 
     // ---------------- idle chatter ----------------
