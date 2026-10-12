@@ -1,0 +1,23 @@
+{
+  "name": "night-ascent",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "야간 산행 — 헤드랜턴 하나로 두 사람이 산을 오르는 웹 공포 게임",
+  "dependencies": {
+    "peerjs": "^1.5.4",
+    "simplex-noise": "^4.0.3",
+    "three": "^0.169.0"
+  },
+  "devDependencies": {
+    "vite": "^5.4.8"
+  },
+  "private": true,
+  "type": "module"
+}
